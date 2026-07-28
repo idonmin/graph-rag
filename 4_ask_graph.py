@@ -21,6 +21,9 @@ graph = Neo4jGraph(
     database=DATABASE
 )
 
+print("Graph schema:")
+print(graph.schema)
+
 llm = init_chat_model(model=OPENAI_MODEL)
 
 chain = GraphCypherQAChain.from_llm(
@@ -33,9 +36,6 @@ chain = GraphCypherQAChain.from_llm(
     #"LLM이 DB 쿼리를 실행한다"는 위험을 이해하고 허용한다는 표시
     allow_dangerous_requests=True,
 )
-
-print("Graph schema:")
-print(graph.schema)
 
 questions = [
     "김민수와 보안팀은 어떤 관계야?",
