@@ -5,7 +5,7 @@ from typing import Literal
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import init_chat_model
 from langchain_neo4j import Neo4jGraph
 
 
@@ -70,10 +70,7 @@ graph = Neo4jGraph(
     database=NEO4J_DATABASE
 )
 
-llm = ChatOpenAI(
-    model=OPENAI_MODEL,
-    temperature=0,
-)
+llm = init_chat_model(model=OPENAI_MODEL)
 
 structured_llm = llm.with_structured_output(
     KGGraph,

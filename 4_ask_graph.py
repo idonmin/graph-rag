@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import init_chat_model
 from langchain_neo4j import Neo4jGraph, GraphCypherQAChain
 
 load_dotenv()
@@ -21,10 +21,7 @@ graph = Neo4jGraph(
     database=DATABASE
 )
 
-llm = ChatOpenAI(
-    model=OPENAI_MODEL,
-    temperature=0,
-)
+llm = init_chat_model(model=OPENAI_MODEL)
 
 chain = GraphCypherQAChain.from_llm(
     llm=llm,
